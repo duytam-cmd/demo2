@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATELIER SCHEDULE — Thời Khóa Biểu Thời Trang Đương Đại (8×4)</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --silk-ivory: #F9F6F0;
+      --warm-alabaster: #F3EDE2;
+      --espresso-ink: #1C1917;
+      --champagne-border: #DFD5C6;
+      --couture-rose: #C87D65;
+      --sage-silk: #7E9680;
+    }
+    * {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .font-editorial {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    /* Diagonal split cell styling — Haute Couture Silk & Cashmere Duotone (No text) */
+    .diagonal-cell {
+      position: relative;
+      background: linear-gradient(
+        to top right,
+        #EFE6D8 0%,
+        #F5EFE6 49.3%,
+        #C5B4A0 49.7%,
+        #C5B4A0 50.3%,
+        #E6DDD0 50.7%,
+        #EDE5D8 100%
+      );
+      overflow: hidden;
+    }
+    /* Subtle fabric weave texture effect on body */
+    body {
+      background-color: var(--silk-ivory);
+      background-image: radial-gradient(rgba(197, 180, 160, 0.18) 1px, transparent 0);
+      background-size: 24px 24px;
+      color: var(--espresso-ink);
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D0C4B2;
+      border-radius: 9999px;
+    }
+    @keyframes couture-pulse {
+      0%, 100% {
+        box-shadow: inset 0 0 0 2px #C87D65, 0 4px 14px -2px rgba(200, 125, 101, 0.18);
+      }
+      50% {
+        box-shadow: inset 0 0 0 2.5px #B5654D, 0 6px 20px -2px rgba(200, 125, 101, 0.28);
+      }
+    }
+    .active-slot-cell {
+      animation: couture-pulse 3s infinite ease-in-out;
+    }
+    .couture-card {
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .couture-card:hover {
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="min-h-screen transition-colors duration-300 selection:bg-[#E8D3C8] selection:text-[#1C1917]">
+
+  <div id="app-wrapper" class="max-w-[1440px] mx-auto p-3 sm:p-6 flex flex-col gap-4">
+
+    <!-- Top Live Header Bar — Runway Editorial Lookbook Header -->
+    <header class="bg-[#FAF7F2]/95 backdrop-blur-md rounded-2xl border border-[#DFD5C6] shadow-[0_8px_30px_rgb(28,25,23,0.04)] px-5 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#292524] to-[#44403C] border border-[#57534E] flex flex-col items-center justify-center text-[#F5EFE6] shadow-md shrink-0">
+          <span class="font-editorial italic text-lg font-bold leading-none tracking-wider">A</span>
+          <span class="text-[8px] uppercase tracking-[0.22em] text-[#D6C7B2] mt-0.5">8×4</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-0.5 rounded-full bg-[#EFE6D8] text-[#6E5A4F] border border-[#DFD5C6]">
+              Atelier Collection • Lịch Tuần
+            </span>
+            <h1 class="font-editorial text-xl sm:text-2xl font-bold text-[#1C1917] tracking-tight">
+              Thời Khóa Biểu Đương Đại
+            </h1>
+            <span id="live-session-badge" class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-0.5 rounded-full bg-[#E5EFE6] text-[#2F4F38] border border-[#C3DAC6]">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#3D6B49] animate-ping"></span>
+              <span id="live-session-text">Đang tải...</span>
+            </span>
+          </div>
+          <p id="live-full-date" class="text-xs sm:text-sm text-[#78716C] font-medium mt-0.5 tracking-wide">
+            Chủ Nhật, ngày 15 tháng 11 năm 2026
+          </p>
+        </div>
+      </div>
+
+      <!-- Real-Time Chronograph & Week Navigation -->
+      <div class="flex items-center flex-wrap gap-2.5 sm:gap-3">
+        <!-- Luxury Minimalist Digital Clock -->
+        <div class="flex items-center gap-2.5 bg-[#1C1917] text-[#F9F6F0] px-4 py-2 rounded-xl border border-[#44403C] shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-[#C87D65]"></span>
+          <span id="live-clock" class="font-mono text-sm sm:text-base font-semibold tracking-[0.14em] text-[#F5EFE6]">00:00:00</span>
+        </div>
+
+        <!-- Week Controls -->
+        <div class="flex items-center bg-[#F2ECE1] p-1 rounded-xl border border-[#DFD5C6]">
+          <button id="btn-prev-week" type="button" title="Tuần trước" class="p-1.5 rounded-lg hover:bg-[#FAF7F2] text-[#57534E] hover:text-[#1C1917] transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button id="btn-today-week" type="button" class="px-3 py-1 text-xs font-bold tracking-wide text-[#292524] hover:text-[#C87D65] transition">
+            Hôm nay
+          </button>
+          <button id="btn-next-week" type="button" title="Tuần sau" class="p-1.5 rounded-lg hover:bg-[#FAF7F2] text-[#57534E] hover:text-[#1C1917] transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="flex items-center gap-1.5">
+          <button id="btn-quick-add" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide bg-[#C87D65] hover:bg-[#B56951] text-white shadow-xs transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            <span>Thêm mục</span>
+          </button>
+          <button id="btn-reset-demo" type="button" title="Khôi phục lịch mặc định (Sáng T2-T7 học trên lớp, tự động trống ngày nghỉ)" class="px-3 py-2 rounded-xl text-xs font-semibold bg-[#EFE6D8] hover:bg-[#E5D8C5] text-[#44403C] border border-[#D8CBB8] transition">
+            Mẫu
+          </button>
+          <button id="btn-clear-all" type="button" title="Xóa trống tuần này" class="px-3 py-2 rounded-xl text-xs font-semibold bg-[#F9E8E6] hover:bg-[#F3D5D1] text-[#9E3F37] border border-[#EBC2BD] transition">
+            Xóa tuần
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Editorial Swatch Summary Strip -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="bg-[#FAF7F2] rounded-xl px-4 py-3 border border-[#DFD5C6] shadow-[0_2px_10px_rgb(28,25,23,0.02)] flex items-center justify-between">
+        <div>
+          <p class="text-[10px] font-bold text-[#8C7A6B] uppercase tracking-[0.15em]">Kỳ lịch tuần</p>
+          <p id="stat-week-range" class="text-xs sm:text-sm font-bold text-[#1C1917] mt-0.5">09/11 – 15/11/2026</p>
+        </div>
+        <span class="w-8 h-8 rounded-lg bg-[#EFE6D8] border border-[#DFD5C6] text-[#57534E] flex items-center justify-center font-editorial italic font-bold text-sm">8×4</span>
+      </div>
+
+      <div class="bg-[#FAF7F2] rounded-xl px-4 py-3 border border-[#DFD5C6] shadow-[0_2px_10px_rgb(28,25,23,0.02)] flex items-center justify-between">
+        <div>
+          <p class="text-[10px] font-bold text-[#8C7A6B] uppercase tracking-[0.15em]">Tổng lịch trình</p>
+          <p id="stat-total-tasks" class="text-xs sm:text-sm font-bold text-[#1C1917] mt-0.5">0 mục</p>
+        </div>
+        <span class="w-8 h-8 rounded-lg bg-[#E6ECF2] border border-[#CBD8E6] text-[#3B556E] flex items-center justify-center font-bold text-xs" id="stat-done-pct">0%</span>
+      </div>
+
+      <div class="bg-[#FAF7F2] rounded-xl px-4 py-3 border border-[#DFD5C6] shadow-[0_2px_10px_rgb(28,25,23,0.02)] flex items-center justify-between">
+        <div>
+          <p class="text-[10px] font-bold text-[#8C7A6B] uppercase tracking-[0.15em]">Tiến độ hoàn tất</p>
+          <p id="stat-completed-tasks" class="text-xs sm:text-sm font-bold text-[#3D6B49] mt-0.5">0 hoàn tất</p>
+        </div>
+        <div class="w-8 h-8 rounded-lg bg-[#E5EFE6] border border-[#C3DAC6] flex items-center justify-center text-[#3D6B49]">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="bg-[#FAF7F2] rounded-xl px-4 py-3 border border-[#DFD5C6] shadow-[0_2px_10px_rgb(28,25,23,0.02)] flex items-center justify-between">
+        <div>
+          <p class="text-[10px] font-bold text-[#8C7A6B] uppercase tracking-[0.15em]">Trạng thái ngày nghỉ</p>
+          <p id="stat-current-slot" class="text-xs sm:text-sm font-bold text-[#9C5740] mt-0.5">Đang quét...</p>
+        </div>
+        <span class="text-[10px] px-2 py-0.5 rounded-md bg-[#F6E6DF] text-[#9C5740] font-bold border border-[#E8C8BA] uppercase tracking-wider">Auto</span>
+      </div>
+    </div>
+
+    <!-- Main 8 Columns × 4 Rows Table Container — Couture Lookbook Grid -->
+    <div class="bg-[#FAF7F2] rounded-2xl shadow-[0_12px_36px_rgb(28,25,23,0.05)] border border-[#D5C7B4] overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse table-fixed min-w-[980px]" aria-label="Bảng thời khóa biểu 8 cột dọc 4 hàng ngang phong cách thời trang đương đại">
+          <thead>
+            <!-- ROW 1: Top Header Row (8 Columns: Col 1 Diagonal Split without text + Col 2..8 Thứ 2..Chủ Nhật) -->
+            <tr id="table-header-row" class="h-24">
+              <!-- Column 1, Row 1: Top-left cell with pure diagonal split, NO text labels ("Thứ", "Thời gian" removed) -->
+              <th scope="col" class="w-[144px] p-0 border-b border-r border-[#D5C7B4] diagonal-cell select-none relative" title="Ô góc phân tách">
+                <svg class="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+                  <line x1="0" y1="0" x2="100" y2="100" stroke="#B8A690" stroke-width="1.6" />
+                </svg>
+                <!-- Subtle minimalist couture corner accents (no words) -->
+                <span class="w-2 h-2 rounded-full bg-[#C87D65]/60 absolute top-2.5 right-2.5"></span>
+                <span class="w-2 h-2 rounded-full bg-[#7E9680]/60 absolute bottom-2.5 left-2.5"></span>
+              </th>
+              <!-- Columns 2 to 8 (Thứ 2 -> Chủ Nhật) injected by JS with curated runway pastel shades -->
+            </tr>
+          </thead>
+          <tbody id="schedule-tbody">
+            <!-- ROWS 2, 3, 4 (Sáng, Chiều, Tối) across 8 columns rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bottom Lookbook Palette Legend -->
+    <footer class="flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-[#57534E] bg-[#FAF7F2] rounded-xl border border-[#DFD5C6] px-4 py-2.5">
+      <div class="flex flex-wrap items-center gap-5">
+        <span class="inline-flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full bg-[#292524] border border-[#C87D65] inline-block"></span>
+          <span>Cột ngày hôm nay (Runway Spotlight)</span>
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full border-2 border-[#C87D65] bg-[#F9EBE5] inline-block"></span>
+          <span>Ca thời gian thực đang diễn ra</span>
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full bg-[#DCE6F2] border border-[#B2C7DF] inline-block"></span>
+          <span>Sáng T2–T7: Học trên lớp (Tự động để trống ngày nghỉ)</span>
+        </span>
+      </div>
+      <div class="text-[#78716C]">
+        <span>Nhấn vào <b>"Đi học / Được nghỉ"</b> trên mỗi cột Thứ để chuyển đổi ngày nghỉ • Nhấn vào ô bất kỳ để thêm nhanh</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal for Adding / Editing Schedule Item -->
+  <div id="task-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#1C1917]/45 backdrop-blur-xs p-4">
+    <div class="bg-[#FAF7F2] rounded-2xl border border-[#D5C7B4] shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="px-5 py-4 bg-[#F2ECE1] border-b border-[#DFD5C6] flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#9C5740] block">Atelier Entry</span>
+          <h2 id="modal-title" class="font-editorial text-xl font-bold text-[#1C1917]">Thêm lịch trình</h2>
+          <p id="modal-subtitle" class="text-xs font-semibold text-[#78716C] mt-0.5">Thứ 2 • Buổi Sáng</p>
+        </div>
+        <button id="btn-close-modal" type="button" class="p-1.5 rounded-xl bg-[#FAF7F2] hover:bg-[#F3D5D1] text-[#57534E] hover:text-[#9E3F37] border border-[#DFD5C6] transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="task-form" class="p-5 space-y-4">
+        <input type="hidden" id="input-task-id" value="" />
+
+        <!-- Day & Session Pickers: Hidden automatically when clicking directly inside a specific Day + Session cell -->
+        <div id="day-session-picker-row" class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="input-day-index" class="block text-[11px] font-bold uppercase tracking-wider text-[#57534E] mb-1">Thứ trong tuần</label>
+            <select id="input-day-index" class="w-full rounded-xl border border-[#D5C7B4] bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#C87D65]">
+              <option value="0">Thứ 2</option>
+              <option value="1">Thứ 3</option>
+              <option value="2">Thứ 4</option>
+              <option value="3">Thứ 5</option>
+              <option value="4">Thứ 6</option>
+              <option value="5">Thứ 7</option>
+              <option value="6">Chủ nhật</option>
+            </select>
+          </div>
+          <div>
+            <label for="input-session-id" class="block text-[11px] font-bold uppercase tracking-wider text-[#57534E] mb-1">Thời gian (Buổi)</label>
+            <select id="input-session-id" class="w-full rounded-xl border border-[#D5C7B4] bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#C87D65]">
+              <option value="sang">Sáng (05:00 - 11:59)</option>
+              <option value="chieu">Chiều (12:00 - 17:59)</option>
+              <option value="toi">Tối (18:00 - 23:59)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="input-task-text" class="block text-[11px] font-bold uppercase tracking-wider text-[#57534E] mb-1">Nội dung công việc / Môn học</label>
+          <input id="input-task-text" type="text" required placeholder="VD: Học trên lớp, Ôn Vật lý 12, Luyện đề HSA..." class="w-full rounded-xl border border-[#D5C7B4] bg-white px-3.5 py-2.5 text-sm font-semibold text-[#1C1917] placeholder:text-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#C87D65]" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="input-task-time" class="block text-[11px] font-bold uppercase tracking-wider text-[#57534E] mb-1">Khung giờ (tùy chọn)</label>
+            <input id="input-task-time" type="text" placeholder="VD: 07:00 - 11:30" class="w-full rounded-xl border border-[#D5C7B4] bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-[#1C1917] placeholder:text-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#C87D65]" />
+          </div>
+          <div>
+            <label for="input-task-color" class="block text-[11px] font-bold uppercase tracking-wider text-[#57534E] mb-1">Sắc độ Couture Pastel</label>
+            <select id="input-task-color" class="w-full rounded-xl border border-[#D5C7B4] bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#C87D65]">
+              <option value="blue">Powder Blue (Học trên lớp)</option>
+              <option value="emerald">Matcha Sage (Rèn luyện)</option>
+              <option value="amber">Champagne Gold (Trọng tâm)</option>
+              <option value="purple">Wisteria Silk (Luyện đề)</option>
+              <option value="rose">Blush Terracotta (Kiểm tra)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-3 border-t border-[#DFD5C6]">
+          <button id="btn-delete-task" type="button" class="hidden px-3.5 py-2 rounded-xl text-xs font-bold text-[#9E3F37] bg-[#F9E8E6] hover:bg-[#F3D5D1] border border-[#EBC2BD] transition">
+            Xóa mục này
+          </button>
+          <div class="flex items-center gap-2 ml-auto">
+            <button id="btn-cancel-modal" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-[#57534E] bg-white hover:bg-[#F2ECE1] border border-[#D5C7B4] transition">
+              Hủy
+            </button>
+            <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#292524] hover:bg-[#44403C] shadow-xs transition">
+              Lưu lịch
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#1C1917]/45 backdrop-blur-xs p-4">
+    <div class="bg-[#FAF7F2] rounded-2xl border border-[#D5C7B4] shadow-2xl w-full max-w-sm p-5 space-y-4">
+      <h3 id="confirm-title" class="font-editorial text-xl font-bold text-[#1C1917]">Xác nhận thao tác</h3>
+      <p id="confirm-message" class="text-xs sm:text-sm font-medium text-[#57534E]">Bạn có chắc chắn muốn thực hiện thao tác này?</p>
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-[#DFD5C6]">
+        <button id="btn-confirm-cancel" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-[#57534E] bg-white hover:bg-[#F2ECE1] border border-[#D5C7B4] transition">
+          Hủy
+        </button>
+        <button id="btn-confirm-ok" type="button" class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#C87D65] hover:bg-[#B56951] transition">
+          Đồng ý
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- CURATED FASHION HOUSE PASTEL PALETTE (8 Columns × 4 Rows) ---
+    // Inspired by Milan/Paris SS27 Resort Collections: Peony Blush, Apricot Cashmere, Buttercream Silk, Celadon Sage, Glacier Mist, Periwinkle Linen, Mauve Organza
+    const DAYS_CONFIG = [
+      {
+        index: 0,
+        label: 'Thứ 2',
+        short: 'T2',
+        headerBg: 'bg-[#F7E4E2]',
+        dateBadgeBg: 'bg-white/85 text-[#7A3E3A] border-[#E4C3BF]',
+        cellTint: 'bg-[#FDF8F7]'
+      },
+      {
+        index: 1,
+        label: 'Thứ 3',
+        short: 'T3',
+        headerBg: 'bg-[#F8E9DC]',
+        dateBadgeBg: 'bg-white/85 text-[#7C4D2B] border-[#E6CCB5]',
+        cellTint: 'bg-[#FDF9F5]'
+      },
+      {
+        index: 2,
+        label: 'Thứ 4',
+        short: 'T4',
+        headerBg: 'bg-[#F6F0D8]',
+        dateBadgeBg: 'bg-white/85 text-[#6E5D23] border-[#E2D8B0]',
+        cellTint: 'bg-[#FDFBF4]'
+      },
+      {
+        index: 3,
+        label: 'Thứ 5',
+        short: 'T5',
+        headerBg: 'bg-[#E2EFE4]',
+        dateBadgeBg: 'bg-white/85 text-[#2F5738] border-[#BDD6C1]',
+        cellTint: 'bg-[#F6FAF7]'
+      },
+      {
+        index: 4,
+        label: 'Thứ 6',
+        short: 'T6',
+        headerBg: 'bg-[#E0EEF2]',
+        dateBadgeBg: 'bg-white/85 text-[#2C5663] border-[#B8D4DC]',
+        cellTint: 'bg-[#F5FAFC]'
+      },
+      {
+        index: 5,
+        label: 'Thứ 7',
+        short: 'T7',
+        headerBg: 'bg-[#E4E7F5]',
+        dateBadgeBg: 'bg-white/85 text-[#38416E] border-[#C1C7E4]',
+        cellTint: 'bg-[#F6F7FC]'
+      },
+      {
+        index: 6,
+        label: 'Chủ nhật',
+        short: 'CN',
+        headerBg: 'bg-[#EFE3F2]',
+        dateBadgeBg: 'bg-white/85 text-[#5B3766] border-[#D6C0DC]',
+        cellTint: 'bg-[#FAF6FB]'
+      }
+    ];
+
+    // Rows 2..4: Sáng (Champagne Crème), Chiều (Sky Cashmere), Tối (Velvet Lavender)
+    const SESSIONS_CONFIG = [
+      {
+        id: 'sang',
+        label: 'Sáng',
+        subtitle: 'Matin',
+        timeRange: '05:00 – 11:59',
+        rowHeaderBg: 'bg-[#F6EDD9]',
+        rowHeaderActiveBg: 'bg-[#F0E2C4]',
+        badgeClass: 'bg-white/90 text-[#6E5626] border-[#DECBA4]',
+        icon: `<svg class="w-4 h-4 text-[#B08238]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`
+      },
+      {
+        id: 'chieu',
+        label: 'Chiều',
+        subtitle: 'Après-midi',
+        timeRange: '12:00 – 17:59',
+        rowHeaderBg: 'bg-[#E2ECF3]',
+        rowHeaderActiveBg: 'bg-[#D1E2EE]',
+        badgeClass: 'bg-white/90 text-[#2E546E] border-[#B6CFE0]',
+        icon: `<svg class="w-4 h-4 text-[#437496]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>`
+      },
+      {
+        id: 'toi',
+        label: 'Tối',
+        subtitle: 'Soirée',
+        timeRange: '18:00 – 23:59',
+        rowHeaderBg: 'bg-[#EAE3F2]',
+        rowHeaderActiveBg: 'bg-[#DDD2EA]',
+        badgeClass: 'bg-white/90 text-[#4C3963] border-[#C6B6D9]',
+        icon: `<svg class="w-4 h-4 text-[#6B508A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>`
+      }
+    ];
+
+    // Couture Task Swatches
+    const COLOR_STYLES = {
+      blue: {
+        bg: 'bg-[#DCE6F2]/95 hover:bg-[#CEDDF0]',
+        border: 'border-[#B2C7DF]',
+        accentBar: 'bg-[#5A7FA8]',
+        text: 'text-[#1E3246]',
+        time: 'text-[#426282]'
+      },
+      emerald: {
+        bg: 'bg-[#DFECE1]/95 hover:bg-[#D1E4D4]',
+        border: 'border-[#B5D1B9]',
+        accentBar: 'bg-[#54825E]',
+        text: 'text-[#1F3A26]',
+        time: 'text-[#3D6B49]'
+      },
+      amber: {
+        bg: 'bg-[#F5E8CE]/95 hover:bg-[#EFE0BF]',
+        border: 'border-[#DEC79B]',
+        accentBar: 'bg-[#B8893A]',
+        text: 'text-[#423113]',
+        time: 'text-[#7A5B25]'
+      },
+      purple: {
+        bg: 'bg-[#EAE0F2]/95 hover:bg-[#E0D2EC]',
+        border: 'border-[#C9B6DA]',
+        accentBar: 'bg-[#7D5BA6]',
+        text: 'text-[#322145]',
+        time: 'text-[#5D427D]'
+      },
+      rose: {
+        bg: 'bg-[#F6DFDC]/95 hover:bg-[#F0D0CC]',
+        border: 'border-[#E2B6B0]',
+        accentBar: 'bg-[#C86D61]',
+        text: 'text-[#4A201B]',
+        time: 'text-[#8C433A]'
+      }
+    };
+
+    // --- SCANNED HOLIDAYS FROM USER'S GOOGLE CALENDAR (Ngày lễ ở Việt Nam) ---
+    const SCANNED_CALENDAR_HOLIDAYS = {
+      '2026-09-01': 'Nghỉ Quốc khánh (bổ sung)',
+      '2026-09-02': 'Nghỉ lễ Quốc khánh',
+      '2026-11-20': 'Nghỉ kỷ niệm Ngày Nhà giáo VN 20/11',
+      '2026-11-24': 'Nghỉ Ngày Văn hoá Việt Nam',
+      '2027-01-01': 'Nghỉ Tết Dương lịch',
+      '2027-02-04': 'Nghỉ Tết Nguyên Đán',
+      '2027-02-05': 'Nghỉ Giao thừa Tết Nguyên Đán',
+      '2027-02-06': 'Nghỉ Tết Nguyên Đán',
+      '2027-02-07': 'Nghỉ Tết Nguyên Đán',
+      '2027-02-08': 'Nghỉ Tết Nguyên Đán',
+      '2027-02-09': 'Nghỉ Tết Nguyên Đán',
+      '2027-02-10': 'Nghỉ Tết Nguyên Đán',
+      '2027-04-16': 'Nghỉ Giỗ Tổ Hùng Vương',
+      '2027-04-30': 'Nghỉ Ngày Giải phóng miền Nam',
+      '2027-05-01': 'Nghỉ Quốc tế Lao động',
+      '2027-05-03': 'Nghỉ bù Quốc tế Lao động'
+    };
+
+    const STORAGE_KEY = 'schedule_8x4_pastel_class_v3';
+    const CUSTOM_OFF_DAYS_KEY = 'schedule_8x4_custom_off_days_v3';
+
+    let weekOffset = 0;
+    let scheduleData = {};
+    let customDayOffOverrides = {};
+    let confirmCallback = null;
+
+    // --- HELPER FUNCTIONS FOR REAL-TIME CALENDAR ---
+    function getMondayOfWeek(baseDate, offsetWeeks = 0) {
+      const d = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate());
+      const jsDay = d.getDay();
+      const diffToMonday = jsDay === 0 ? -6 : 1 - jsDay;
+      d.setDate(d.getDate() + diffToMonday + offsetWeeks * 7);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+
+    function formatDateKey(dateObj) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const d = String(dateObj.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function formatShortDM(dateObj) {
+      const d = String(dateObj.getDate()).padStart(2, '0');
+      const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+      return `${d}/${m}`;
+    }
+
+    function getCurrentSessionId(now = new Date()) {
+      const h = now.getHours();
+      if (h >= 5 && h < 12) return 'sang';
+      if (h >= 12 && h < 18) return 'chieu';
+      return 'toi';
+    }
+
+    function getSessionLabel(sessionId) {
+      const found = SESSIONS_CONFIG.find(s => s.id === sessionId);
+      return found ? found.label : 'Tối';
+    }
+
+    function getWeekDates(offset = weekOffset) {
+      const monday = getMondayOfWeek(new Date(), offset);
+      return DAYS_CONFIG.map((day, idx) => {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + idx);
+        return {
+          ...day,
+          dateObj: d,
+          dateKey: formatDateKey(d),
+          shortDM: formatShortDM(d)
+        };
+      });
+    }
+
+    function getDayOffReason(dateKey, dayIndex) {
+      if (dayIndex === 6) return 'Nghỉ Chủ nhật';
+      if (Object.prototype.hasOwnProperty.call(customDayOffOverrides, dateKey)) {
+        return customDayOffOverrides[dateKey] ? 'Ngày nghỉ (Tự chọn)' : null;
+      }
+      if (SCANNED_CALENDAR_HOLIDAYS[dateKey]) {
+        return SCANNED_CALENDAR_HOLIDAYS[dateKey];
+      }
+      return null;
+    }
+
+    // Automatically ensure Mon-Sat morning slots have "Học trên lớp" unless the day is a holiday/day-off
+    function syncMorningClassForWeek(weekDays) {
+      let modified = false;
+      weekDays.forEach((dayInfo) => {
+        if (dayInfo.index >= 0 && dayInfo.index <= 5) {
+          const slotKey = `${dayInfo.dateKey}_sang`;
+          const offReason = getDayOffReason(dayInfo.dateKey, dayInfo.index);
+
+          if (offReason) {
+            if (scheduleData[slotKey]) {
+              const beforeLen = scheduleData[slotKey].length;
+              scheduleData[slotKey] = scheduleData[slotKey].filter(t => !t.isAutoMorningClass);
+              if (scheduleData[slotKey].length !== beforeLen) modified = true;
+            }
+          } else {
+            if (!Object.prototype.hasOwnProperty.call(scheduleData, slotKey)) {
+              scheduleData[slotKey] = [
+                {
+                  id: `auto_class_${dayInfo.dateKey}`,
+                  text: 'Học trên lớp',
+                  time: '07:00 - 11:30',
+                  color: 'blue',
+                  done: false,
+                  isAutoMorningClass: true
+                }
+              ];
+              modified = true;
+            }
+          }
+        }
+      });
+      if (modified) saveData();
+    }
+
+    function toggleDayOff(dateKey, dayIndex) {
+      if (dayIndex === 6) return;
+      const currentlyOff = Boolean(getDayOffReason(dateKey, dayIndex));
+      const nextOffState = !currentlyOff;
+      customDayOffOverrides[dateKey] = nextOffState;
+
+      const slotKey = `${dateKey}_sang`;
+      if (nextOffState) {
+        scheduleData[slotKey] = [];
+      } else {
+        scheduleData[slotKey] = [
+          {
+            id: `auto_class_${dateKey}`,
+            text: 'Học trên lớp',
+            time: '07:00 - 11:30',
+            color: 'blue',
+            done: false,
+            isAutoMorningClass: true
+          }
+        ];
+      }
+
+      saveData();
+      renderScheduleTable();
+    }
+
+    // --- STORAGE & INITIAL DATA ---
+    function buildDefaultWeekData() {
+      const currentWeekDays = getWeekDates(0);
+      const data = {};
+
+      currentWeekDays.forEach((dayInfo) => {
+        if (dayInfo.index >= 0 && dayInfo.index <= 5) {
+          const offReason = getDayOffReason(dayInfo.dateKey, dayInfo.index);
+          const slotKey = `${dayInfo.dateKey}_sang`;
+          if (!offReason) {
+            data[slotKey] = [
+              {
+                id: `auto_class_${dayInfo.dateKey}`,
+                text: 'Học trên lớp',
+                time: '07:00 - 11:30',
+                color: 'blue',
+                done: false,
+                isAutoMorningClass: true
+              }
+            ];
+          } else {
+            data[slotKey] = [];
+          }
+        }
+      });
+
+      const eveningStudy = [
+        { dayIdx: 1, session: 'toi', text: 'Vật lí 12 - Lý thuyết chuyên đề (Live Group)', time: '21:30 - 23:00', color: 'purple', done: false },
+        { dayIdx: 3, session: 'toi', text: 'Vật lí 12 - Bài tập vận dụng (Live Group)', time: '21:30 - 23:00', color: 'purple', done: false },
+        { dayIdx: 4, session: 'toi', text: 'Vật lí 12 - Luyện đề & Chữa chi tiết', time: '21:30 - 23:00', color: 'amber', done: false }
+      ];
+
+      eveningStudy.forEach((item, idx) => {
+        const dKey = currentWeekDays[item.dayIdx].dateKey;
+        const offReason = getDayOffReason(dKey, item.dayIdx);
+        if (!offReason) {
+          const slotKey = `${dKey}_${item.session}`;
+          if (!data[slotKey]) data[slotKey] = [];
+          data[slotKey].push({
+            id: `seed_ev_${idx}_${Date.now()}`,
+            text: item.text,
+            time: item.time,
+            color: item.color,
+            done: item.done
+          });
+        }
+      });
+
+      return data;
+    }
+
+    function loadData() {
+      try {
+        const rawOff = localStorage.getItem(CUSTOM_OFF_DAYS_KEY);
+        if (rawOff) customDayOffOverrides = JSON.parse(rawOff);
+
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          scheduleData = JSON.parse(raw);
+          return;
+        }
+      } catch (e) {
+        // Ignore storage errors
+      }
+      scheduleData = buildDefaultWeekData();
+      saveData();
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(scheduleData));
+        localStorage.setItem(CUSTOM_OFF_DAYS_KEY, JSON.stringify(customDayOffOverrides));
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
+    // --- RENDER 8 COLUMNS × 4 ROWS TABLE ---
+    function renderScheduleTable() {
+      const now = new Date();
+      const todayKey = formatDateKey(now);
+      const currentSession = getCurrentSessionId(now);
+      const weekDays = getWeekDates(weekOffset);
+
+      syncMorningClassForWeek(weekDays);
+
+      const firstDay = weekDays[0];
+      const lastDay = weekDays[6];
+      document.getElementById('stat-week-range').textContent =
+        `${firstDay.shortDM} – ${lastDay.shortDM}/${lastDay.dateObj.getFullYear()}`;
+
+      const offDaysInWeek = weekDays.filter(d => getDayOffReason(d.dateKey, d.index));
+      const statHolidayEl = document.getElementById('stat-current-slot');
+      if (offDaysInWeek.length === 1 && offDaysInWeek[0].index === 6) {
+        statHolidayEl.textContent = 'Nghỉ Chủ nhật (T2–T7 học sáng)';
+      } else {
+        const names = offDaysInWeek.map(d => d.short).join(', ');
+        statHolidayEl.textContent = `Nghỉ: ${names} (Đã để trống)`;
+      }
+
+      // 1. Render Row 1: Header Columns 2..8 (Thứ 2 -> Chủ Nhật)
+      const headerRow = document.getElementById('table-header-row');
+      while (headerRow.children.length > 1) {
+        headerRow.removeChild(headerRow.lastChild);
+      }
+
+      weekDays.forEach((dayInfo) => {
+        const isToday = dayInfo.dateKey === todayKey;
+        const offReason = getDayOffReason(dayInfo.dateKey, dayInfo.index);
+        const th = document.createElement('th');
+        th.scope = 'col';
+        th.className = `p-2.5 border-b border-r border-[#D5C7B4] last:border-r-0 text-center transition-colors select-none ${
+          isToday
+            ? 'bg-[#292524] text-[#F9F6F0]'
+            : `${dayInfo.headerBg} text-[#1C1917]`
+        }`;
+
+        const toggleBadgeHtml = dayInfo.index <= 5
+          ? `<button type="button" class="toggle-off-btn mt-1.5 inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full border transition ${
+               offReason
+                 ? 'bg-[#F9E8E6] text-[#9E3F37] border-[#EBC2BD] hover:bg-[#F3D5D1]'
+                 : isToday
+                 ? 'bg-[#44403C] text-[#E7E5E4] border-[#57534E] hover:bg-[#57534E]'
+                 : 'bg-white/80 text-[#3D6B49] border-[#C3DAC6] hover:bg-white'
+             }" title="Nhấn để chuyển đổi Đi học / Được nghỉ (Tự động làm trống buổi sáng)">
+               <span>${offReason ? 'Được nghỉ' : 'Đi học'}</span>
+             </button>`
+          : `<span class="mt-1.5 inline-flex items-center gap-1 text-[10px] font-semibold px-2.5 py-0.5 rounded-full ${
+               isToday
+                 ? 'bg-[#44403C] text-[#D6C7B2] border border-[#57534E]'
+                 : 'bg-white/75 text-[#6B508A] border border-[#D6C0DC]'
+             }">
+               Nghỉ cuối tuần
+             </span>`;
+
+        th.innerHTML = `
+          <div class="flex flex-col items-center justify-center gap-0.5">
+            <div class="flex items-center gap-1.5">
+              <span class="font-editorial text-base sm:text-lg font-bold tracking-wide">${dayInfo.label}</span>
+              ${isToday ? '<span class="text-[9px] uppercase font-extrabold tracking-widest px-1.5 py-0.5 rounded bg-[#C87D65] text-white">Today</span>' : ''}
+            </div>
+            <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${
+              isToday
+                ? 'bg-[#1C1917] text-[#E7E5E4] border-[#57534E]'
+                : dayInfo.dateBadgeBg
+            }">${dayInfo.shortDM}/${dayInfo.dateObj.getFullYear()}</span>
+            ${toggleBadgeHtml}
+          </div>
+        `;
+
+        const toggleBtn = th.querySelector('.toggle-off-btn');
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleDayOff(dayInfo.dateKey, dayInfo.index);
+          });
+        }
+
+        headerRow.appendChild(th);
+      });
+
+      // 2. Render Rows 2..4: Sáng, Chiều, Tối
+      const tbody = document.getElementById('schedule-tbody');
+      tbody.innerHTML = '';
+
+      let totalWeekTasks = 0;
+      let completedWeekTasks = 0;
+
+      SESSIONS_CONFIG.forEach((session) => {
+        const tr = document.createElement('tr');
+        tr.className = 'min-h-[148px]';
+
+        const isCurrentSessionRow = (weekOffset === 0 && session.id === currentSession);
+
+        // Column 1: Session Row Header (Sáng / Chiều / Tối)
+        const rowHeaderTd = document.createElement('th');
+        rowHeaderTd.scope = 'row';
+        rowHeaderTd.className = `p-3.5 border-b border-r border-[#D5C7B4] text-left align-middle select-none transition-colors ${
+          isCurrentSessionRow ? session.rowHeaderActiveBg : session.rowHeaderBg
+        }`;
+
+        rowHeaderTd.innerHTML = `
+          <div class="flex flex-col gap-1">
+            <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-[#78716C]">${session.subtitle}</span>
+            <div class="flex items-center gap-2">
+              ${session.icon}
+              <span class="font-editorial text-lg sm:text-xl font-bold text-[#1C1917] leading-none">${session.label}</span>
+            </div>
+            <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-md border w-fit mt-1 ${session.badgeClass}">
+              ${session.timeRange}
+            </span>
+            ${
+              isCurrentSessionRow
+                ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#C87D65] text-[#9C5740] w-fit mt-1">
+                     <span class="w-1.5 h-1.5 rounded-full bg-[#C87D65] animate-ping"></span>
+                     Đang diễn ra
+                   </span>`
+                : ''
+            }
+          </div>
+        `;
+        tr.appendChild(rowHeaderTd);
+
+        // Columns 2..8: Day Cells for this Session
+        weekDays.forEach((dayInfo) => {
+          const isToday = dayInfo.dateKey === todayKey;
+          const isLiveSlot = isToday && session.id === currentSession;
+          const offReason = getDayOffReason(dayInfo.dateKey, dayInfo.index);
+          const slotKey = `${dayInfo.dateKey}_${session.id}`;
+          const tasks = scheduleData[slotKey] || [];
+
+          totalWeekTasks += tasks.length;
+          completedWeekTasks += tasks.filter(t => t.done).length;
+
+          const td = document.createElement('td');
+          td.className = `p-2.5 border-b border-r last:border-r-0 border-[#E5DEC9] align-top h-36 transition relative group cursor-pointer ${
+            isLiveSlot
+              ? 'bg-[#F9EBE5]/90 active-slot-cell'
+              : isToday
+              ? 'bg-[#F5EFE6]/85 hover:bg-[#EFE6D8]/70'
+              : `${dayInfo.cellTint} hover:bg-[#F5EFE6]/60`
+          }`;
+
+          // Clicking directly inside a cell opens modal with locked Day + Session (picker hidden)
+          td.addEventListener('click', (e) => {
+            if (e.target.closest('.task-card') || e.target.closest('.cell-add-btn')) return;
+            openTaskModal(dayInfo.index, session.id, null, true);
+          });
+
+          // Cell Top Bar (Live indicator + Quick + button)
+          const topBar = document.createElement('div');
+          topBar.className = 'flex items-center justify-between mb-1.5 min-h-[20px]';
+          topBar.innerHTML = `
+            <div>
+              ${
+                isLiveSlot
+                  ? `<span class="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#C87D65] text-white shadow-2xs">
+                       Live Now
+                     </span>`
+                  : `<span class="text-[10px] font-semibold text-[#A8A29E] opacity-0 group-hover:opacity-100 transition">${dayInfo.short} • ${session.label}</span>`
+              }
+            </div>
+            <button type="button" class="cell-add-btn opacity-0 group-hover:opacity-100 focus:opacity-100 w-6 h-6 rounded-lg bg-white hover:bg-[#292524] text-[#57534E] hover:text-white border border-[#D5C7B4] flex items-center justify-center transition shadow-2xs" title="Thêm vào ${dayInfo.label} - Buổi ${session.label}">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+          `;
+
+          topBar.querySelector('.cell-add-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openTaskModal(dayInfo.index, session.id, null, true);
+          });
+
+          td.appendChild(topBar);
+
+          // Tasks List inside Cell
+          const listContainer = document.createElement('div');
+          listContainer.className = 'space-y-1.5';
+
+          if (tasks.length === 0) {
+            const emptyHint = document.createElement('div');
+            emptyHint.className = 'h-20 flex flex-col items-center justify-center rounded-xl border border-dashed border-transparent group-hover:border-[#D5C7B4] group-hover:bg-white/50 transition px-1 text-center';
+            if (offReason && session.id === 'sang') {
+              emptyHint.innerHTML = `<span class="text-[10px] font-medium italic text-[#9C5740]/80 group-hover:text-[#78716C] select-none">${escapeHtml(offReason)} • Trống</span>`;
+            } else {
+              emptyHint.innerHTML = `<span class="text-[11px] font-medium text-[#C5B4A0] group-hover:text-[#78716C] select-none">+ Thêm lịch</span>`;
+            }
+            listContainer.appendChild(emptyHint);
+          } else {
+            tasks.forEach((task) => {
+              const style = COLOR_STYLES[task.color] || COLOR_STYLES.blue;
+              const card = document.createElement('div');
+              card.className = `task-card couture-card relative overflow-hidden rounded-xl p-2 pl-3 border text-xs shadow-[0_2px_6px_rgb(28,25,23,0.03)] ${style.bg} ${style.border} ${
+                task.done ? 'opacity-55' : ''
+              }`;
+
+              card.innerHTML = `
+                <span class="absolute left-0 top-0 bottom-0 w-1 ${style.accentBar}"></span>
+                <div class="flex items-start gap-2">
+                  <input type="checkbox" ${task.done ? 'checked' : ''} class="task-check mt-0.5 rounded border-[#A8A29E] text-[#3D6B49] focus:ring-[#7E9680] cursor-pointer shrink-0 w-3.5 h-3.5" title="Đánh dấu hoàn thành" />
+                  <div class="flex-1 min-w-0">
+                    <p class="font-bold leading-snug break-words ${style.text} ${task.done ? 'line-through opacity-75' : ''}">${escapeHtml(task.text)}</p>
+                    ${
+                      task.time
+                        ? `<p class="text-[10px] font-semibold tracking-wide mt-0.5 ${style.time}">${escapeHtml(task.time)}</p>`
+                        : ''
+                    }
+                  </div>
+                </div>
+              `;
+
+              // Toggle checkbox
+              const checkbox = card.querySelector('.task-check');
+              checkbox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                task.done = checkbox.checked;
+                saveData();
+                renderScheduleTable();
+              });
+
+              // Click card inside cell to edit (keeps Day/Session picker hidden)
+              card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openTaskModal(dayInfo.index, session.id, task, true);
+              });
+
+              listContainer.appendChild(card);
+            });
+          }
+
+          td.appendChild(listContainer);
+          tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+      });
+
+      // Update summary counters
+      document.getElementById('stat-total-tasks').textContent = `${totalWeekTasks} mục trong tuần`;
+      document.getElementById('stat-completed-tasks').textContent = `${completedWeekTasks}/${totalWeekTasks} hoàn tất`;
+      const pct = totalWeekTasks > 0 ? Math.round((completedWeekTasks / totalWeekTasks) * 100) : 0;
+      document.getElementById('stat-done-pct').textContent = `${pct}%`;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // --- REAL-TIME CLOCK ENGINE ---
+    let lastRenderedMinute = -1;
+
+    function updateRealTimeClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      document.getElementById('live-clock').textContent = `${hours}:${minutes}:${seconds}`;
+
+      const vnWeekdays = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+      const dayName = vnWeekdays[now.getDay()];
+      const dayNum = String(now.getDate()).padStart(2, '0');
+      const monthNum = String(now.getMonth() + 1).padStart(2, '0');
+      const yearNum = now.getFullYear();
+
+      document.getElementById('live-full-date').textContent =
+        `${dayName}, ngày ${dayNum} tháng ${monthNum} năm ${yearNum}`;
+
+      const sessionId = getCurrentSessionId(now);
+      const sessionName = getSessionLabel(sessionId);
+
+      document.getElementById('live-session-text').textContent =
+        `Buổi ${sessionName} • ${hours}:${minutes}`;
+
+      if (now.getMinutes() !== lastRenderedMinute) {
+        lastRenderedMinute = now.getMinutes();
+        renderScheduleTable();
+      }
+    }
+
+    // --- MODAL CONTROLS ---
+    const taskModal = document.getElementById('task-modal');
+    const taskForm = document.getElementById('task-form');
+    const daySessionPickerRow = document.getElementById('day-session-picker-row');
+    const inputTaskId = document.getElementById('input-task-id');
+    const inputDayIndex = document.getElementById('input-day-index');
+    const inputSessionId = document.getElementById('input-session-id');
+    const inputTaskText = document.getElementById('input-task-text');
+    const inputTaskTime = document.getElementById('input-task-time');
+    const inputTaskColor = document.getElementById('input-task-color');
+    const btnDeleteTask = document.getElementById('btn-delete-task');
+
+    function openTaskModal(dayIdx = 0, sessionId = 'sang', existingTask = null, fromCell = false) {
+      const weekDays = getWeekDates(weekOffset);
+      const dayObj = weekDays[dayIdx] || weekDays[0];
+      const sLabel = getSessionLabel(sessionId);
+
+      inputDayIndex.value = String(dayIdx);
+      inputSessionId.value = sessionId;
+
+      if (fromCell) {
+        daySessionPickerRow.classList.add('hidden');
+      } else {
+        daySessionPickerRow.classList.remove('hidden');
+      }
+
+      if (existingTask) {
+        document.getElementById('modal-title').textContent = 'Chỉnh sửa mục lịch trình';
+        document.getElementById('modal-subtitle').textContent = `${dayObj.label} (${dayObj.shortDM}) • Buổi ${sLabel}`;
+        inputTaskId.value = existingTask.id;
+        inputTaskText.value = existingTask.text;
+        inputTaskTime.value = existingTask.time || '';
+        inputTaskColor.value = existingTask.color || 'blue';
+        btnDeleteTask.classList.remove('hidden');
+      } else {
+        document.getElementById('modal-title').textContent = 'Thêm mục lịch trình mới';
+        document.getElementById('modal-subtitle').textContent = `${dayObj.label} (${dayObj.shortDM}) • Buổi ${sLabel}`;
+        inputTaskId.value = '';
+        inputTaskText.value = '';
+        inputTaskTime.value = '';
+        inputTaskColor.value = 'blue';
+        btnDeleteTask.classList.add('hidden');
+      }
+
+      taskModal.classList.remove('hidden');
+      taskModal.classList.add('flex');
+      setTimeout(() => inputTaskText.focus(), 50);
+    }
+
+    function closeTaskModal() {
+      taskModal.classList.add('hidden');
+      taskModal.classList.remove('flex');
+    }
+
+    taskForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = inputTaskText.value.trim();
+      if (!text) return;
+
+      const dayIdx = parseInt(inputDayIndex.value, 10);
+      const sessionId = inputSessionId.value;
+      const time = inputTaskTime.value.trim();
+      const color = inputTaskColor.value;
+      const taskId = inputTaskId.value;
+
+      const weekDays = getWeekDates(weekOffset);
+      const targetDateKey = weekDays[dayIdx].dateKey;
+      const targetSlotKey = `${targetDateKey}_${sessionId}`;
+
+      if (taskId) {
+        let prevDone = false;
+        Object.keys(scheduleData).forEach((key) => {
+          const arr = scheduleData[key] || [];
+          const found = arr.find(t => t.id === taskId);
+          if (found) prevDone = found.done;
+          scheduleData[key] = arr.filter(t => t.id !== taskId);
+        });
+        if (!scheduleData[targetSlotKey]) scheduleData[targetSlotKey] = [];
+        scheduleData[targetSlotKey].push({
+          id: taskId,
+          text,
+          time,
+          color,
+          done: prevDone
+        });
+      } else {
+        if (!scheduleData[targetSlotKey]) scheduleData[targetSlotKey] = [];
+        scheduleData[targetSlotKey].push({
+          id: `task_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+          text,
+          time,
+          color,
+          done: false
+        });
+      }
+
+      saveData();
+      closeTaskModal();
+      renderScheduleTable();
+    });
+
+    btnDeleteTask.addEventListener('click', () => {
+      const taskId = inputTaskId.value;
+      if (!taskId) return;
+      Object.keys(scheduleData).forEach((key) => {
+        scheduleData[key] = (scheduleData[key] || []).filter(t => t.id !== taskId);
+      });
+      saveData();
+      closeTaskModal();
+      renderScheduleTable();
+    });
+
+    document.getElementById('btn-close-modal').addEventListener('click', closeTaskModal);
+    document.getElementById('btn-cancel-modal').addEventListener('click', closeTaskModal);
+
+    // --- CONFIRMATION MODAL ---
+    const confirmModal = document.getElementById('confirm-modal');
+    function openConfirmModal(title, message, onConfirm) {
+      document.getElementById('confirm-title').textContent = title;
+      document.getElementById('confirm-message').textContent = message;
+      confirmCallback = onConfirm;
+      confirmModal.classList.remove('hidden');
+      confirmModal.classList.add('flex');
+    }
+
+    function closeConfirmModal() {
+      confirmModal.classList.add('hidden');
+      confirmModal.classList.remove('flex');
+      confirmCallback = null;
+    }
+
+    document.getElementById('btn-confirm-cancel').addEventListener('click', closeConfirmModal);
+    document.getElementById('btn-confirm-ok').addEventListener('click', () => {
+      if (typeof confirmCallback === 'function') confirmCallback();
+      closeConfirmModal();
+    });
+
+    // --- TOP BAR BUTTON LISTENERS ---
+    document.getElementById('btn-prev-week').addEventListener('click', () => {
+      weekOffset -= 1;
+      renderScheduleTable();
+    });
+
+    document.getElementById('btn-next-week').addEventListener('click', () => {
+      weekOffset += 1;
+      renderScheduleTable();
+    });
+
+    document.getElementById('btn-today-week').addEventListener('click', () => {
+      weekOffset = 0;
+      renderScheduleTable();
+    });
+
+    document.getElementById('btn-quick-add').addEventListener('click', () => {
+      const now = new Date();
+      const jsDay = now.getDay();
+      const todayIdx = jsDay === 0 ? 6 : jsDay - 1;
+      const currentSess = getCurrentSessionId(now);
+      openTaskModal(todayIdx, currentSess, null, false);
+    });
+
+    document.getElementById('btn-reset-demo').addEventListener('click', () => {
+      openConfirmModal(
+        'Khôi phục lịch mặc định',
+        'Bạn có muốn nạp lại lịch mặc định (Sáng Thứ 2–Thứ 7: Học trên lớp, tự động để trống các ngày nghỉ) không?',
+        () => {
+          customDayOffOverrides = {};
+          scheduleData = buildDefaultWeekData();
+          saveData();
+          renderScheduleTable();
+        }
+      );
+    });
+
+    document.getElementById('btn-clear-all').addEventListener('click', () => {
+      openConfirmModal(
+        'Xóa trống lịch tuần này',
+        'Tất cả các mục công việc trong tuần đang xem sẽ bị xóa. Bạn có chắc chắn không?',
+        () => {
+          const weekDays = getWeekDates(weekOffset);
+          weekDays.forEach((d) => {
+            SESSIONS_CONFIG.forEach((s) => {
+              scheduleData[`${d.dateKey}_${s.id}`] = [];
+            });
+          });
+          saveData();
+          renderScheduleTable();
+        }
+      );
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeTaskModal();
+        closeConfirmModal();
+      }
+    });
+
+    // Initialize
+    loadData();
+    updateRealTimeClock();
+    setInterval(updateRealTimeClock, 1000);
+  </script>
+</body>
+</html>
