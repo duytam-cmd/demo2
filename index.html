@@ -17,8 +17,12 @@
       --couture-rose: #C87D65;
       --sage-silk: #7E9680;
     }
-    * {
+    body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--silk-ivory);
+      background-image: radial-gradient(rgba(197, 180, 160, 0.18) 1px, transparent 0);
+      background-size: 24px 24px;
+      color: var(--espresso-ink);
     }
     .font-editorial {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -36,13 +40,6 @@
         #EDE5D8 100%
       );
       overflow: hidden;
-    }
-    /* Subtle fabric weave texture effect on body */
-    body {
-      background-color: var(--silk-ivory);
-      background-image: radial-gradient(rgba(197, 180, 160, 0.18) 1px, transparent 0);
-      background-size: 24px 24px;
-      color: var(--espresso-ink);
     }
     /* Custom scrollbar */
     ::-webkit-scrollbar {
@@ -456,7 +453,7 @@
       },
       cyan: {
         bg: 'bg-[#DBF1F7]/95 hover:bg-[#C9E8F0]',
-        border: 'border-[#9FD1DEC]',
+        border: 'border-[#9FD1DE]',
         accentBar: 'bg-[#3993AB]',
         text: 'text-[#1B4854]',
         time: 'text-[#2B6B7D]'
@@ -476,9 +473,6 @@
         time: 'text-[#995326]'
       }
     };
-
-    // Fix border typo on cyan
-    COLOR_STYLES.cyan.border = 'border-[#9FD1DE]';
 
     // --- SCANNED HOLIDAYS FROM USER'S GOOGLE CALENDAR (Ngày lễ ở Việt Nam) ---
     const SCANNED_CALENDAR_HOLIDAYS = {
@@ -716,8 +710,7 @@
 
       const firstDay = weekDays[0];
       const lastDay = weekDays[6];
-      document.getElementById('stat-week-range').textContent =
-        `${firstDay.shortDM} – ${lastDay.shortDM}/${lastDay.dateObj.getFullYear()}`;
+      document.getElementById('stat-week-range').textContent = `${firstDay.shortDM} – ${lastDay.shortDM}/${lastDay.dateObj.getFullYear()}`;
 
       const offDaysInWeek = weekDays.filter(d => getDayOffReason(d.dateKey, d.index));
       const statHolidayEl = document.getElementById('stat-current-slot');
@@ -742,29 +735,14 @@
         th.className = `p-2.5 border-b border-r border-[#D5C7B4] last:border-r-0 text-center transition-colors select-none ${dayInfo.headerBg} text-[#1C1917]`;
 
         const toggleBadgeHtml = dayInfo.index <= 5
-          ? `<button type="button" class="toggle-off-btn mt-1.5 inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full border transition ${
-               offReason
-                 ? 'bg-[#F9E8E6] text-[#9E3F37] border-[#EBC2BD] hover:bg-[#F3D5D1]'
-                 : 'bg-white/80 text-[#3D6B49] border-[#C3DAC6] hover:bg-white'
-             }" title="Nhấn để chuyển đổi Đi học / Được nghỉ (Tự động làm trống buổi sáng)">
-               <span>${offReason ? 'Được nghỉ' : 'Đi học'}</span>
-             </button>`
-          : `<span class="mt-1.5 inline-flex items-center gap-1 text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-white/75 text-[#6B508A] border border-[#D6C0DC]">
-               Nghỉ cuối tuần
-             </span>`;
+          ? `<button type="button" class="toggle-off-btn mt-1.5 inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full border transition ${offReason ? 'bg-[#F9E8E6] text-[#9E3F37] border-[#EBC2BD] hover:bg-[#F3D5D1]' : 'bg-white/80 text-[#3D6B49] border-[#C3DAC6] hover:bg-white'}" title="Nhấn để chuyển đổi Đi học / Được nghỉ (Tự động làm trống buổi sáng)"><span>${offReason ? 'Được nghỉ' : 'Đi học'}</span></button>`
+          : `<span class="mt-1.5 inline-flex items-center gap-1 text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-white/75 text-[#6B508A] border border-[#D6C0DC]">Nghỉ cuối tuần</span>`;
 
         th.innerHTML = `
           <div class="flex flex-col items-center justify-center gap-0.5">
             <div class="flex items-center justify-center gap-1.5 flex-wrap">
               <span class="font-editorial text-base sm:text-lg font-bold tracking-wide">${dayInfo.label}</span>
-              ${
-                isToday
-                  ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#C87D65] text-[#9C5740]">
-                       <span class="w-1.5 h-1.5 rounded-full bg-[#C87D65] animate-ping"></span>
-                       Đang diễn ra
-                     </span>`
-                  : ''
-              }
+              ${isToday ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#C87D65] text-[#9C5740]"><span class="w-1.5 h-1.5 rounded-full bg-[#C87D65] animate-ping"></span>Đang diễn ra</span>` : ''}
             </div>
             <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${dayInfo.dateBadgeBg}">${dayInfo.shortDM}/${dayInfo.dateObj.getFullYear()}</span>
             ${toggleBadgeHtml}
@@ -798,9 +776,7 @@
         // Column 1: Session Row Header (Sáng / Chiều / Tối)
         const rowHeaderTd = document.createElement('th');
         rowHeaderTd.scope = 'row';
-        rowHeaderTd.className = `p-3.5 border-b border-r border-[#D5C7B4] text-left align-middle select-none transition-colors ${
-          isCurrentSessionRow ? session.rowHeaderActiveBg : session.rowHeaderBg
-        }`;
+        rowHeaderTd.className = `p-3.5 border-b border-r border-[#D5C7B4] text-left align-middle select-none transition-colors ${isCurrentSessionRow ? session.rowHeaderActiveBg : session.rowHeaderBg}`;
 
         rowHeaderTd.innerHTML = `
           <div class="flex flex-col gap-1">
@@ -809,17 +785,8 @@
               ${session.icon}
               <span class="font-editorial text-lg sm:text-xl font-bold text-[#1C1917] leading-none">${session.label}</span>
             </div>
-            <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-md border w-fit mt-1 ${session.badgeClass}">
-              ${session.timeRange}
-            </span>
-            ${
-              isCurrentSessionRow
-                ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#C87D65] text-[#9C5740] w-fit mt-1">
-                     <span class="w-1.5 h-1.5 rounded-full bg-[#C87D65] animate-ping"></span>
-                     Đang diễn ra
-                   </span>`
-                : ''
-            }
+            <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-md border w-fit mt-1 ${session.badgeClass}">${session.timeRange}</span>
+            ${isCurrentSessionRow ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#C87D65] text-[#9C5740] w-fit mt-1"><span class="w-1.5 h-1.5 rounded-full bg-[#C87D65] animate-ping"></span>Đang diễn ra</span>` : ''}
           </div>
         `;
         tr.appendChild(rowHeaderTd);
@@ -853,17 +820,13 @@
           // Cell Top Bar (Live indicator + Quick + button)
           const topBar = document.createElement('div');
           topBar.className = 'flex items-center justify-between mb-1.5 min-h-[20px]';
+          const statusLabelHtml = isLiveSlot
+            ? `<span class="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#C87D65] text-white shadow-2xs">Live Now</span>`
+            : `<span class="text-[10px] font-semibold text-[#A8A29E] opacity-0 group-hover:opacity-100 transition">${dayInfo.short} • ${session.label}</span>`;
+
           topBar.innerHTML = `
-            <div>
-              ${
-                isLiveSlot
-                  ? `<span class="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#C87D65] text-white shadow-2xs">
-                       Live Now
-                     </span>`
-                  : `<span class="text-[10px] font-semibold text-[#A8A29E] opacity-0 group-hover:opacity-100 transition">${dayInfo.short} • ${session.label}</span>`
-              }
-            </div>
-            <button type="button" class="cell-add-btn opacity-0 group-hover:opacity-100 focus:opacity-100 w-6 h-6 rounded-lg bg-white hover:bg-[#292524] text-[#57534E] hover:text-white border border-[#D5C7B4] flex items-center justify-center transition shadow-2xs" title="Thêm vào ${dayInfo.label} - Buổi ${session.label}">
+            <div>${statusLabelHtml}</div>
+            <button type="button" class="cell-add-btn opacity-0 group-hover:opacity-100 focus:opacity-100 w-6 h-6 rounded-lg bg-white hover:bg-[#292524] text-[#57534E] hover:text-white border border-[#D5C7B4] flex items-center justify-center transition shadow-2xs" title="Thêm vào ${dayInfo.label} Buổi ${session.label}">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
               </svg>
@@ -894,9 +857,7 @@
             tasks.forEach((task) => {
               const style = COLOR_STYLES[task.color] || COLOR_STYLES.blue;
               const card = document.createElement('div');
-              card.className = `task-card couture-card relative overflow-hidden rounded-xl p-2 pl-3 border text-xs shadow-[0_2px_6px_rgb(28,25,23,0.03)] ${style.bg} ${style.border} ${
-                task.done ? 'opacity-55' : ''
-              }`;
+              card.className = `task-card couture-card relative overflow-hidden rounded-xl p-2 pl-3 border text-xs shadow-[0_2px_6px_rgb(28,25,23,0.03)] ${style.bg} ${style.border} ${task.done ? 'opacity-55' : ''}`;
 
               card.innerHTML = `
                 <span class="absolute left-0 top-0 bottom-0 w-1 ${style.accentBar}"></span>
@@ -904,11 +865,7 @@
                   <input type="checkbox" ${task.done ? 'checked' : ''} class="task-check mt-0.5 rounded border-[#A8A29E] text-[#3D6B49] focus:ring-[#7E9680] cursor-pointer shrink-0 w-3.5 h-3.5" title="Đánh dấu hoàn thành" />
                   <div class="flex-1 min-w-0">
                     <p class="font-bold leading-snug break-words ${style.text} ${task.done ? 'line-through opacity-75' : ''}">${escapeHtml(task.text)}</p>
-                    ${
-                      task.time
-                        ? `<p class="text-[10px] font-semibold tracking-wide mt-0.5 ${style.time}">${escapeHtml(task.time)}</p>`
-                        : ''
-                    }
+                    ${task.time ? `<p class="text-[10px] font-semibold tracking-wide mt-0.5 ${style.time}">${escapeHtml(task.time)}</p>` : ''}
                   </div>
                 </div>
               `;
@@ -971,14 +928,12 @@
       const monthNum = String(now.getMonth() + 1).padStart(2, '0');
       const yearNum = now.getFullYear();
 
-      document.getElementById('live-full-date').textContent =
-        `${dayName}, ngày ${dayNum} tháng ${monthNum} năm ${yearNum}`;
+      document.getElementById('live-full-date').textContent = `${dayName}, ngày ${dayNum} tháng ${monthNum} năm ${yearNum}`;
 
       const sessionId = getCurrentSessionId(now);
       const sessionName = getSessionLabel(sessionId);
 
-      document.getElementById('live-session-text').textContent =
-        `Buổi ${sessionName} • ${hours}:${minutes}`;
+      document.getElementById('live-session-text').textContent = `Buổi ${sessionName} ${hours}:${minutes}`;
 
       if (now.getMinutes() !== lastRenderedMinute) {
         lastRenderedMinute = now.getMinutes();
