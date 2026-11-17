@@ -212,27 +212,6 @@
         </table>
       </div>
     </div>
-
-    <!-- Bottom Lookbook Palette Legend -->
-    <footer class="flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-[#57534E] bg-[#FAF7F2] rounded-xl border border-[#DFD5C6] px-4 py-2.5">
-      <div class="flex flex-wrap items-center gap-5">
-        <span class="inline-flex items-center gap-2">
-          <span class="w-3.5 h-3.5 rounded-full bg-[#292524] border border-[#C87D65] inline-block"></span>
-          <span>Cột ngày hôm nay (Runway Spotlight)</span>
-        </span>
-        <span class="inline-flex items-center gap-2">
-          <span class="w-3.5 h-3.5 rounded-full border-2 border-[#C87D65] bg-[#F9EBE5] inline-block"></span>
-          <span>Ca thời gian thực đang diễn ra</span>
-        </span>
-        <span class="inline-flex items-center gap-2">
-          <span class="w-3.5 h-3.5 rounded-full bg-[#DCE6F2] border border-[#B2C7DF] inline-block"></span>
-          <span>Sáng T2–T7: Học trên lớp (Tự động để trống ngày nghỉ)</span>
-        </span>
-      </div>
-      <div class="text-[#78716C]">
-        <span>Nhấn vào <b>"Đi học / Được nghỉ"</b> trên mỗi cột Thứ để chuyển đổi ngày nghỉ • Nhấn vào ô bất kỳ để thêm nhanh</span>
-      </div>
-    </footer>
   </div>
 
   <!-- Modal for Adding / Editing Schedule Item -->
@@ -291,11 +270,13 @@
           <div>
             <label for="input-task-color" class="block text-[11px] font-bold uppercase tracking-wider text-[#57534E] mb-1">Sắc độ Couture Pastel</label>
             <select id="input-task-color" class="w-full rounded-xl border border-[#D5C7B4] bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#C87D65]">
-              <option value="blue">Powder Blue (Học trên lớp)</option>
-              <option value="emerald">Matcha Sage (Rèn luyện)</option>
-              <option value="amber">Champagne Gold (Trọng tâm)</option>
-              <option value="purple">Wisteria Silk (Luyện đề)</option>
-              <option value="rose">Blush Terracotta (Kiểm tra)</option>
+              <option value="blue">Periwinkle Blue (Học trên lớp)</option>
+              <option value="emerald">Celadon Mint (Rèn luyện)</option>
+              <option value="amber">Buttercream Gold (Trọng tâm)</option>
+              <option value="purple">Mauve Lavender (Luyện đề)</option>
+              <option value="rose">Peony Blush (Kiểm tra)</option>
+              <option value="peach">Apricot Peach (Ngoại khóa)</option>
+              <option value="cyan">Glacier Aqua (Tự học)</option>
             </select>
           </div>
         </div>
@@ -429,44 +410,75 @@
       }
     ];
 
-    // Couture Task Swatches
+    // Couture Task Swatches — Fresh Pastel Palette aligned with the 7 Day Header Columns
     const COLOR_STYLES = {
       blue: {
-        bg: 'bg-[#DCE6F2]/95 hover:bg-[#CEDDF0]',
-        border: 'border-[#B2C7DF]',
-        accentBar: 'bg-[#5A7FA8]',
-        text: 'text-[#1E3246]',
-        time: 'text-[#426282]'
+        bg: 'bg-[#E3EAFA]/95 hover:bg-[#D5E0F7]',
+        border: 'border-[#B4C3EC]',
+        accentBar: 'bg-[#4E6FD1]',
+        text: 'text-[#243263]',
+        time: 'text-[#3B5194]'
       },
       emerald: {
-        bg: 'bg-[#DFECE1]/95 hover:bg-[#D1E4D4]',
-        border: 'border-[#B5D1B9]',
-        accentBar: 'bg-[#54825E]',
-        text: 'text-[#1F3A26]',
-        time: 'text-[#3D6B49]'
+        bg: 'bg-[#DCF4E1]/95 hover:bg-[#CBEBD2]',
+        border: 'border-[#A6D9B1]',
+        accentBar: 'bg-[#3D9956]',
+        text: 'text-[#1D4B29]',
+        time: 'text-[#2E6E3F]'
       },
       amber: {
-        bg: 'bg-[#F5E8CE]/95 hover:bg-[#EFE0BF]',
-        border: 'border-[#DEC79B]',
-        accentBar: 'bg-[#B8893A]',
-        text: 'text-[#423113]',
-        time: 'text-[#7A5B25]'
+        bg: 'bg-[#FCF1CC]/95 hover:bg-[#F9E8B4]',
+        border: 'border-[#E6CE83]',
+        accentBar: 'bg-[#CC9A2B]',
+        text: 'text-[#5E4912]',
+        time: 'text-[#87691D]'
       },
       purple: {
-        bg: 'bg-[#EAE0F2]/95 hover:bg-[#E0D2EC]',
-        border: 'border-[#C9B6DA]',
-        accentBar: 'bg-[#7D5BA6]',
-        text: 'text-[#322145]',
-        time: 'text-[#5D427D]'
+        bg: 'bg-[#F1E2F7]/95 hover:bg-[#E7D2F0]',
+        border: 'border-[#D2B0E0]',
+        accentBar: 'bg-[#8A56B8]',
+        text: 'text-[#49245E]',
+        time: 'text-[#6B3A87]'
       },
       rose: {
-        bg: 'bg-[#F6DFDC]/95 hover:bg-[#F0D0CC]',
-        border: 'border-[#E2B6B0]',
-        accentBar: 'bg-[#C86D61]',
-        text: 'text-[#4A201B]',
-        time: 'text-[#8C433A]'
+        bg: 'bg-[#FCE3E1]/95 hover:bg-[#F9D3D0]',
+        border: 'border-[#EBB2AD]',
+        accentBar: 'bg-[#D6655C]',
+        text: 'text-[#6B2925]',
+        time: 'text-[#96403B]'
+      },
+      peach: {
+        bg: 'bg-[#FDE9D8]/95 hover:bg-[#FBDCC2]',
+        border: 'border-[#ECC09C]',
+        accentBar: 'bg-[#DE7A40]',
+        text: 'text-[#6E3A18]',
+        time: 'text-[#995326]'
+      },
+      cyan: {
+        bg: 'bg-[#DBF1F7]/95 hover:bg-[#C9E8F0]',
+        border: 'border-[#9FD1DEC]',
+        accentBar: 'bg-[#3993AB]',
+        text: 'text-[#1B4854]',
+        time: 'text-[#2B6B7D]'
+      },
+      aqua: {
+        bg: 'bg-[#DBF1F7]/95 hover:bg-[#C9E8F0]',
+        border: 'border-[#9FD1DE]',
+        accentBar: 'bg-[#3993AB]',
+        text: 'text-[#1B4854]',
+        time: 'text-[#2B6B7D]'
+      },
+      mocha: {
+        bg: 'bg-[#FDE9D8]/95 hover:bg-[#FBDCC2]',
+        border: 'border-[#ECC09C]',
+        accentBar: 'bg-[#DE7A40]',
+        text: 'text-[#6E3A18]',
+        time: 'text-[#995326]'
       }
     };
+
+    // Fix border typo on cyan
+    COLOR_STYLES.cyan.border = 'border-[#9FD1DE]';
 
     // --- SCANNED HOLIDAYS FROM USER'S GOOGLE CALENDAR (Ngày lễ ở Việt Nam) ---
     const SCANNED_CALENDAR_HOLIDAYS = {
@@ -727,41 +739,34 @@
         const offReason = getDayOffReason(dayInfo.dateKey, dayInfo.index);
         const th = document.createElement('th');
         th.scope = 'col';
-        th.className = `p-2.5 border-b border-r border-[#D5C7B4] last:border-r-0 text-center transition-colors select-none ${
-          isToday
-            ? 'bg-[#292524] text-[#F9F6F0]'
-            : `${dayInfo.headerBg} text-[#1C1917]`
-        }`;
+        th.className = `p-2.5 border-b border-r border-[#D5C7B4] last:border-r-0 text-center transition-colors select-none ${dayInfo.headerBg} text-[#1C1917]`;
 
         const toggleBadgeHtml = dayInfo.index <= 5
           ? `<button type="button" class="toggle-off-btn mt-1.5 inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full border transition ${
                offReason
                  ? 'bg-[#F9E8E6] text-[#9E3F37] border-[#EBC2BD] hover:bg-[#F3D5D1]'
-                 : isToday
-                 ? 'bg-[#44403C] text-[#E7E5E4] border-[#57534E] hover:bg-[#57534E]'
                  : 'bg-white/80 text-[#3D6B49] border-[#C3DAC6] hover:bg-white'
              }" title="Nhấn để chuyển đổi Đi học / Được nghỉ (Tự động làm trống buổi sáng)">
                <span>${offReason ? 'Được nghỉ' : 'Đi học'}</span>
              </button>`
-          : `<span class="mt-1.5 inline-flex items-center gap-1 text-[10px] font-semibold px-2.5 py-0.5 rounded-full ${
-               isToday
-                 ? 'bg-[#44403C] text-[#D6C7B2] border border-[#57534E]'
-                 : 'bg-white/75 text-[#6B508A] border border-[#D6C0DC]'
-             }">
+          : `<span class="mt-1.5 inline-flex items-center gap-1 text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-white/75 text-[#6B508A] border border-[#D6C0DC]">
                Nghỉ cuối tuần
              </span>`;
 
         th.innerHTML = `
           <div class="flex flex-col items-center justify-center gap-0.5">
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center justify-center gap-1.5 flex-wrap">
               <span class="font-editorial text-base sm:text-lg font-bold tracking-wide">${dayInfo.label}</span>
-              ${isToday ? '<span class="text-[9px] uppercase font-extrabold tracking-widest px-1.5 py-0.5 rounded bg-[#C87D65] text-white">Today</span>' : ''}
+              ${
+                isToday
+                  ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#C87D65] text-[#9C5740]">
+                       <span class="w-1.5 h-1.5 rounded-full bg-[#C87D65] animate-ping"></span>
+                       Đang diễn ra
+                     </span>`
+                  : ''
+              }
             </div>
-            <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${
-              isToday
-                ? 'bg-[#1C1917] text-[#E7E5E4] border-[#57534E]'
-                : dayInfo.dateBadgeBg
-            }">${dayInfo.shortDM}/${dayInfo.dateObj.getFullYear()}</span>
+            <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${dayInfo.dateBadgeBg}">${dayInfo.shortDM}/${dayInfo.dateObj.getFullYear()}</span>
             ${toggleBadgeHtml}
           </div>
         `;
@@ -1013,7 +1018,7 @@
         inputTaskId.value = existingTask.id;
         inputTaskText.value = existingTask.text;
         inputTaskTime.value = existingTask.time || '';
-        inputTaskColor.value = existingTask.color || 'blue';
+        inputTaskColor.value = COLOR_STYLES[existingTask.color] ? existingTask.color : 'blue';
         btnDeleteTask.classList.remove('hidden');
       } else {
         document.getElementById('modal-title').textContent = 'Thêm mục lịch trình mới';
